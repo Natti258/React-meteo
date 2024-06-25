@@ -3,22 +3,22 @@ import React from "react";
 function Forecast({ data }) {
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = new Date();
-  const currentDayOfWeekIndex = today.getDay(); // Получаем индекс текущего дня недели
+  const currentDayOfWeekIndex = today.getDay();
 
   const getNextDayOfWeek = (currentDayOfWeekIndex, offset) => {
     return (currentDayOfWeekIndex + offset) % 7;
   };
 
-  const forecastList = data.list.slice(0, 5); // Получаем прогнозы только на следующие 5 дней
+  const forecastList = data.list.filter((item, index) => index % 8 === 0).slice(1, 6);
 
   return (
     <div className="weather-forecast">
       {forecastList.map((forecast, index) => {
-        const forecastDate = new Date(forecast.dt * 1000); // Преобразуем время из Unix в миллисекунды
-        const dayOfWeekIndex = getNextDayOfWeek(currentDayOfWeekIndex, index + 1); // Индекс дня недели для прогноза
+        const forecastDate = new Date(forecast.dt * 1000);
+        const dayOfWeekIndex = getNextDayOfWeek(currentDayOfWeekIndex, index + 1);
         const maxTemp = Math.round(forecast.main.temp_max);
         const minTemp = Math.round(forecast.main.temp_min);
-        const weatherCode = forecast.weather[0].icon; // Получаем код погоды
+        const weatherCode = forecast.weather[0].icon;
         const weatherIcon = getWeatherIcon(weatherCode);
 
         return (
@@ -45,13 +45,12 @@ function getWeatherIcon(weatherCode) {
     case "01n":
       return "https://s9.gifyu.com/images/SUve6.gif"; // Яркая луна
     case "02d":
-    case "03d":
-    case "04d":
-      return "https://s9.gifyu.com/images/SUvP7.gif"; // Облачно
     case "02n":
+    case "03d":
     case "03n":
+    case "04d":
     case "04n":
-      return "https://s9.gifyu.com/images/SUve0.gif"; // Облачно ночью
+      return "https://s9.gifyu.com/images/SUvP7.gif"; // Облачно
     case "09d":
     case "09n":
       return "https://s9.gifyu.com/images/SUvPd.gif"; // Дождь

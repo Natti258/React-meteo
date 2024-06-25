@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 import WeatherSearch from './components/WeatherSearch';
 
 function App() {

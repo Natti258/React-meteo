@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Weather from "./src/Weather";
-import Forecast from "./src/Forecast";
+import Weather from "./Weather";
+import Forecast from "./Forecast";
 
 function WeatherSearch() {
   const [city, setCity] = useState("");
